@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编码探秘小侦探学习活动单</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            padding-right: 180px;
+            background-color: #fdfdfe;
+            background-image: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+        .student-name {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #34495e;
+            background-color: rgba(255,255,255,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .student-name input {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .student-name input:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .learning-goals {
+            background-color: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            border-left: 5px solid #27ae60;
+        }
+        .learning-goals h2 {
+            color: #27ae60;
+            margin-top: 0;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+        .learning-goals h2:before {
+            content: "🎯";
+            margin-right: 10px;
+        }
+        .learning-goals ul {
+            padding-left: 25px;
+            color: #34495e;
+            font-size: 16px;
+        }
+        .learning-goals li {
+            margin: 8px 0;
+            position: relative;
+        }
+        .learning-goals li:before {
+            content: "✓";
+            color: #27ae60;
+            position: absolute;
+            left: -20px;
+        }
+        .activity {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 5px solid #3498db;
+        }
+        .activity:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .activity h2 {
+            color: #3498db;
+            font-size: 20px;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .activity h2:nth-child(2) {
+            margin-bottom: 20px;
+        }
+        .activity h2:before {
+            content: "🔍";
+            margin-right: 10px;
+        }
+        .activity p, .activity ul, .activity table {
+            color: #3498db;
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        .activity input[type="radio"], .activity input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .activity table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .activity table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        .activity table tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
+        .activity table td:hover {
+            background-color: #e3f2fd;
+        }
+        .activity textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            min-height: 100px;
+            margin-top: 10px;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+        .activity textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .activity input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .activity input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .help-tip {
+            display: inline-block;
+            margin-left: 10px;
+            color: #3498db;
+            font-weight: bold;
+            cursor: help;
+            position: relative;
+        }
+        .help-tip:hover:after {
+            content: "有困难可以查询智能体“码小宝”";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #34495e;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        /* 右侧勋章栏样式 */
+        .medal-bar {
+            position: fixed;
+            right: 50px;
+            top: 50px;
+            width: 130px;
+            background-color: white;
+            border: 3px solid #f1c40f;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-image: linear-gradient(135deg, #fef9c7 0%, #fff9e6 100%);
+        }
+        .medal-bar h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 10px;
+        }
+        .medal-item {
+            margin: 15px 0;
+            color: #2c3e50;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .medal-item:hover {
+            transform: scale(1.05);
+        }
+        .medal-item input[type="checkbox"] {
+            display: none;
+        }
+        .medal-item label {
+            cursor: pointer;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #ecf0f1;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 24px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        /* 统一的勋章图标样式 */
+        .medal-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #95a5a6;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .medal-icon:before {
+            content: "★";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 16px;
+        }
+        /* 选中状态的勋章样式 */
+        .medal-item input[type="checkbox"]:checked + label .medal-icon {
+            background-color: #f1c40f;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
+            transform: scale(1.1);
+        }
+        .medal-item input[type="checkbox"]:checked + label {
+            background-color: #fff9e6;
+            box-shadow: 0 4px 8px rgba(241, 196, 15, 0.2);
+            transform: rotate(5deg);
+        }
+        .medal-bar hr {
+            border: 0;
+            border-top: 2px dashed #f1c40f;
+            margin: 20px 0;
+        }
+        .medal-count {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .medal-count span {
+            font-size: 28px;
+            color: #e67e22;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .learning-gain {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-left: 5px solid #e67e22;
+        }
+        .learning-gain h2 {
+            color: #e67e22;
+            margin-top: 0;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+        .learning-gain h2:before {
+            content: "📝";
+            margin-right: 10px;
+        }
+        .option-label {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+        .hint-text {
+            color: #e67e22;
+            font-style: italic;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        /* --- 智能体样式优化 --- */
+        /* 确保智能体容器不会被其他元素遮挡 */
+        #coze-web-chat-container {
+            z-index: 9999 !important; 
+            position: fixed !important; /* 固定在右下角 */
+            bottom: 20px !important;
+            right: 20px !important;
+            /* 移除可能限制大小的样式 */
+            width: auto !important;
+            height: auto !important;
+        }
+        
+        /* 智能体窗口整体样式 */
+        .coze-web-chat-app {
+            border-radius: 12px !important;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2) !important;
+            overflow: hidden !important;
+            border: none !important; /* 移除默认边框 */
+            width: 320px !important; /* 明确宽度 */
+            height: 500px !important; /* 明确高度 */
+        }
+        
+        /* 智能体头部样式 */
+        .coze-web-chat-app .chat-header {
+            background-color: #3498db !important;
+            color: white !important;
+            font-weight: bold !important;
+            font-size: 16px !important;
+            padding: 12px 16px !important;
+        }
+        
+        /* 输入框区域样式 */
+        .coze-web-chat-app .message-input-container {
+            border-top: 1px solid #e0e0e0 !important;
+            padding: 10px !important;
+        }
+        
+        /* 发送按钮样式 */
+        .coze-web-chat-app .send-button {
+            background-color: #3498db !important;
+            border-color: #3498db !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .coze-web-chat-app .send-button:hover {
+            background-color: #2980b9 !important;
+            border-color: #2980b9 !important;
+        }
+        /* 加载提示样式 */
+        #coze-loading-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            color: #3498db;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 14px;
+            z-index: 9998; /* 略低于智能体窗口 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 标题 -->
+    <h1 class="title">编码探秘小侦探学习活动单</h1>
+
+    <!-- 学生姓名填写 -->
+    <div class="student-name">
+        学生姓名：<input type="text" placeholder="请填写你的姓名">
+    </div>
+
+    <!-- 学习目标 -->
+    <div class="learning-goals">
+        <h2>一、学习目标</h2>
+        <ul>
+            <li>认识烽火传军情、红绿灯、邮政编码、身份证等多种编码，知道不同编码传递信息的方式。</li>
+            <li>理解邮政编码的四级六码规则和身份证的编码构成，能根据编码提取简单信息、补充完整编码。</li>
+            <li>体会编码的唯一性和重要性，感受编码在生活中的作用，培养观察和推理能力。</li>
+        </ul>
+    </div>
+
+    <!-- 学习活动1：烽火台的秘密 -->
+    <div class="activity">
+        <h2>二、学习活动</h2>
+        <h2>活动一：烽火台的秘密——解锁“古早通信勋章”</h2>
+        <p>1. 阅读资料：烽火台是古代传递军情的工具，“烽火传军情”用烟（白天）或火（夜晚）作为编码，传递“有敌人来犯”的信息。</p>
+        <p>2. 思考作答：</p>
+        <p>（1）古代“烽火传军情”的编码方式是（ ）</p>
+        <div>
+            <input type="radio" name="q1" id="q1a" value="A"> 
+            <label for="q1a"><span class="option-label">A</span>文字传递</label><br>
+            <input type="radio" name="q1" id="q1b" value="B"> 
+            <label for="q1b"><span class="option-label">B</span>烟（白天）或火（夜晚）</label><br>
+            <input type="radio" name="q1" id="q1c" value="C"> 
+            <label for="q1c"><span class="option-label">C</span>敲击鼓声</label><br>
+            <input type="radio" name="q1" id="q1d" value="D"> 
+            <label for="q1d"><span class="option-label">D</span>飞鸽传书</label>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        
+        <p>（2）烽火台传递信息的缺点是（ ）</p>
+        <div>
+            <input type="radio" name="q2" id="q2a" value="A"> 
+            <label for="q2a"><span class="option-label">A</span>传递速度太慢</label><br>
+            <input type="radio" name="q2" id="q2b" value="B"> 
+            <label for="q2b"><span class="option-label">B</span>能传递的信息量很少</label><br>
+            <input type="radio" name="q2" id="q2c" value="C"> 
+            <label for="q2c"><span class="option-label">C</span>只能在白天使用</label><br>
+            <input type="radio" name="q2" id="q2d" value="D"> 
+            <label for="q2d"><span class="option-label">D</span>容易被敌人破坏</label>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        
+        <button class="btn" onclick="checkActivity1()">完成活动</button>
+    </div>
+
+    <!-- 学习活动2：红绿灯的密码 -->
+    <div class="activity">
+        <h2>活动二：红绿灯的密码——解锁“交通信号勋章”</h2>
+        <p>1. 知识学习：红绿灯采用颜色编码，帮助维持交通秩序。</p>
+        <p>2. 配对游戏：将颜色与对应的含义用线连起来（可在纸上连线后，在下方填写对应关系）</p>
+        <table>
+            <tr>
+                <td>红色</td>
+                <td><span class="option-label">A</span>允许通行</td>
+            </tr>
+            <tr>
+                <td>黄色</td>
+                <td><span class="option-label">B</span>禁止通行</td>
+            </tr>
+            <tr>
+                <td>绿色</td>
+                <td><span class="option-label">C</span>等待信号变换</td>
+            </tr>
+        </table>
+        <p>正确对应关系：红色→（ ），黄色→（ ），绿色→（ ）</p>
+        <div>
+            <input type="text" id="red-light" placeholder="A/B/C" style="width: 50px; margin-right: 20px;">
+            <input type="text" id="yellow-light" placeholder="A/B/C" style="width: 50px; margin-right: 20px;">
+            <input type="text" id="green-light" placeholder="A/B/C" style="width: 50px;">
+        </div>
+        <div id="feedback-traffic" class="feedback"></div>
+        
+        <p>3. 判断题：红绿灯的编码方式仅用颜色表示，与形状无关（ ）</p>
+        <div>
+            <input type="radio" name="q3" id="q3a" value="√"> <label for="q3a">√</label>
+            <input type="radio" name="q3" id="q3b" value="×"> <label for="q3b">×</label>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        
+        <button class="btn" onclick="checkActivity2()">完成活动</button>
+    </div>
+
+    <!-- 学习活动3：邮政编码大解密 -->
+    <div class="activity">
+        <h2>活动三：邮政编码大解密——解锁“地理编码勋章”</h2>
+        <p class="hint-text">💡 提示：借助智能体“码小宝”完成活动</p>
+        <p>1. 学习规则：邮政编码是四级六码结构，前两位表示省（直辖市、自治区），第三位表示市，第四位表示县区，最后两位表示投递局（所）。</p>
+        <p>2. 实战练习：</p>
+        <p>（1）山东省的邮政编码前两位是（ ），淄博市临淄区的前四位邮政编码是（ ）。</p>
+        <div>
+            <input type="text" id="shandong-code" placeholder="山东省前两位" style="width: 100px; margin-right: 20px;">
+            <input type="text" id="linzi-code" placeholder="临淄区前四位" style="width: 100px;">
+        </div>
+        
+        <p>（2）请补充完整山东省淄博市临淄区辛店街道的邮政编码：2554（ ）（ ）</p>
+        <div>
+            <input type="text" id="postal5" placeholder="第五位" style="width: 50px; margin-right: 10px;">
+            <input type="text" id="postal6" placeholder="第六位" style="width: 50px;">
+        </div>
+        
+        <button class="btn" onclick="completeActivity(3)">完成活动</button>
+    </div>
+
+    <!-- 学习活动4：身份证里的小秘密 -->
+    <div class="activity">
+        <h2>活动四：身份证里的小秘密——解锁“身份解码勋章”</h2>
+        <p class="hint-text">💡 提示：借助智能体“码小宝”完成活动</p>
+        <p>1. 解码规则：</p>
+        <ul>
+            <li>前6位：地址码（省、市、县区）</li>
+            <li>中间8位：生日码（年、月、日）</li>
+            <li>第17位：性别码（奇数为男，偶数为女）</li>
+            <li>第18位：校验码</li>
+        </ul>
+        <p>2. 侦探任务：根据身份证号码370305200210012658，完成下面填空</p>
+        <p>（1）户籍地：山东省（ ）市（ ）区</p>
+        <div>
+            <input type="text" id="city" placeholder="市" style="width: 100px; margin-right: 20px;">
+            <input type="text" id="district" placeholder="区" style="width: 100px;">
+        </div>
+        
+        <p>（2）出生日期：（ ）年（ ）月（ ）日</p>
+        <div>
+            <input type="text" id="birth-year" placeholder="年" style="width: 80px; margin-right: 10px;">
+            <input type="text" id="birth-month" placeholder="月" style="width: 50px; margin-right: 10px;">
+            <input type="text" id="birth-day" placeholder="日" style="width: 50px;">
+        </div>
+        
+        <p>（3）性别：（ ）</p>
+        <div>
+            <input type="radio" name="gender" id="male" value="男"> <label for="male">男</label>
+            <input type="radio" name="gender" id="female" value="女"> <label for="female">女</label>
+        </div>
+        
+        <button class="btn" onclick="completeActivity(4)">完成活动</button>
+    </div>
+
+    <!-- 学习活动5：编码大总结 -->
+    <div class="activity">
+        <h2>活动五：编码大总结——解锁“超级侦探勋章”</h2>
+        <p class="hint-text">💡 提示：借助智能体“码小宝”完成活动</p>
+        <p>1. 思考讨论：</p>
+        <p>（1）生活中还有哪些地方用到了编码？（至少写出2个）</p>
+        <div>
+            ① <input type="text" id="code1" style="width: 250px; margin: 5px 0;"><br>
+            ② <input type="text" id="code2" style="width: 250px; margin: 5px 0;">
+        </div>
+        
+        <p>（2）编码为什么需要是唯一的？它给我们的生活带来了什么好处？</p>
+        <textarea id="code-benefit" placeholder="请写下你的想法"></textarea>
+        
+        <button class="btn" onclick="completeActivity(5)">完成活动</button>
+    </div>
+
+    <!-- 学习收获 -->
+    <div class="learning-gain">
+        <h2>三、学习收获</h2>
+        <p>今天我学会了：</p>
+        <textarea placeholder="请写下你学会的知识"></textarea>
+        <p>我觉得编码最有趣的地方是：</p>
+        <textarea placeholder="请写下你的感受"></textarea>
+        <p>我还想了解的编码知识是：</p>
+        <textarea placeholder="请写下你的疑问或兴趣点"></textarea>
+    </div>
+
+    <!-- 右侧勋章栏 -->
+    <div class="medal-bar">
+        <h4>我的勋章墙</h4>
+        <div class="medal-item">
+            古早通信勋章<br>
+            <input type="checkbox" id="medal1"> 
+            <label for="medal1">
+                <span class="medal-icon"></span>
+            </label>
+        </div>
+        <div class="medal-item">
+            交通信号勋章<br>
+            <input type="checkbox" id="medal2"> 
+            <label for="medal2">
+                <span class="medal-icon"></span>
+            </label>
+        </div>
+        <div class="medal-item">
+            地理编码勋章<br>
+            <input type="checkbox" id="medal3"> 
+            <label for="medal3">
+                <span class="medal-icon"></span>
+            </label>
+        </div>
+        <div class="medal-item">
+            身份解码勋章<br>
+            <input type="checkbox" id="medal4"> 
+            <label for="medal4">
+                <span class="medal-icon"></span>
+            </label>
+        </div>
+        <div class="medal-item">
+            超级侦探勋章<br>
+            <input type="checkbox" id="medal5"> 
+            <label for="medal5">
+                <span class="medal-icon"></span>
+            </label>
+        </div>
+        <hr>
+        <div class="medal-count">
+            累计点亮<br>
+            <span id="medal-total">0</span>/5
+        </div>
+    </div>
+
+    <!-- 统计勋章数量的脚本 -->
+    <script>
+        // 获取所有勋章复选框
+        const medalCheckboxes = document.querySelectorAll('.medal-bar input[type="checkbox"]');
+        const medalTotal = document.getElementById('medal-total');
+        
+        // 更新勋章数量
+        function updateMedalCount() {
+            let count = 0;
+            medalCheckboxes.forEach(cb => {
+                if (cb.checked) count++;
+            });
+            medalTotal.textContent = count;
+        }
+        
+        // 显示反馈信息
+        function showFeedback(id, isCorrect, message) {
+            const feedback = document.getElementById(id);
+            feedback.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+            feedback.innerHTML = isCorrect ? '✅ ' + message : '❌ ' + message;
+            feedback.style.display = 'block';
+        }
+        
+        // 活动一检查
+        function checkActivity1() {
+            let correctCount = 0;
+            
+            // 检查第一题
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            if (q1Answer && q1Answer.value === 'B') {
+                showFeedback('feedback-q1', true, '回答正确！烽火台确实用烟（白天）或火（夜晚）作为编码。');
+                correctCount++;
+            } else {
+                showFeedback('feedback-q1', false, '回答错误！正确答案是B：烟（白天）或火（夜晚）。');
+            }
+            
+            // 检查第二题
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            if (q2Answer && q2Answer.value === 'B') {
+                showFeedback('feedback-q2', true, '回答正确！烽火台只能传递"有敌人来犯"这一种信息。');
+                correctCount++;
+            } else {
+                showFeedback('feedback-q2', false, '回答错误！正确答案是B：能传递的信息量很少。');
+            }
+            
+            // 如果两题都正确，点亮勋章
+            if (correctCount === 2) {
+                document.getElementById('medal1').checked = true;
+                updateMedalCount();
+                setTimeout(() => {
+                    alert('恭喜你！解锁了"古早通信勋章"！');
+                }, 500);
+            }
+        }
+        
+        // 活动二检查
+        function checkActivity2() {
+            let correctCount = 0;
+            
+            // 检查红绿灯配对
+            const redAnswer = document.getElementById('red-light').value.toUpperCase();
+            const yellowAnswer = document.getElementById('yellow-light').value.toUpperCase();
+            const greenAnswer = document.getElementById('green-light').value.toUpperCase();
+            
+            if (redAnswer === 'B' && yellowAnswer === 'C' && greenAnswer === 'A') {
+                showFeedback('feedback-traffic', true, '配对正确！红色→禁止通行，黄色→等待信号变换，绿色→允许通行。');
+                correctCount++;
+            } else {
+                showFeedback('feedback-traffic', false, '配对错误！正确答案：红色→B，黄色→C，绿色→A。');
+            }
+            
+            // 检查判断题
+            const q3Answer = document.querySelector('input[name="q3"]:checked');
+            if (q3Answer && q3Answer.value === '√') {
+                showFeedback('feedback-q3', true, '回答正确！红绿灯主要通过颜色编码，与形状无关。');
+                correctCount++;
+            } else {
+                showFeedback('feedback-q3', false, '回答错误！正确答案是√，红绿灯的编码方式主要用颜色表示。');
+            }
+            
+            // 如果两题都正确，点亮勋章
+            if (correctCount === 2) {
+                document.getElementById('medal2').checked = true;
+                updateMedalCount();
+                setTimeout(() => {
+                    alert('恭喜你！解锁了"交通信号勋章"！');
+                }, 500);
+            }
+        }
+        
+        // 完成活动（无需判断对错，直接点亮勋章）
+        function completeActivity(activityNum) {
+            // 点亮对应的勋章
+            document.getElementById('medal' + activityNum).checked = true;
+            updateMedalCount();
+            
+            // 显示恭喜信息
+            let medalName = '';
+            
+            switch(activityNum) {
+                case 3:
+                    medalName = '地理编码勋章';
+                    break;
+                case 4:
+                    medalName = '身份解码勋章';
+                    break;
+                case 5:
+                    medalName = '超级侦探勋章';
+                    break;
+            }
+            
+            setTimeout(() => {
+                alert(`恭喜你完成活动！解锁了"${medalName}"！`);
+                
+                // 检查是否获得所有勋章
+                const allMedals = document.querySelectorAll('.medal-bar input[type="checkbox"]:checked');
+                if (allMedals.length === 5) {
+                    setTimeout(() => {
+                        alert('🎉 恭喜你获得所有勋章！你成为了真正的编码小侦探！ 🎉');
+                    }, 500);
+                }
+            }, 500);
+        }
+        
+        // 初始化
+        updateMedalCount();
+    </script>
+
+    <!-- 智能体加载提示 -->
+    <div id="coze-loading-indicator">正在加载智能助手“码小宝”...</div>
+
+    <!-- 智能体代码集成 -->
+    <!-- 请将 'pat_********' 替换为您的真实 PAT Token -->
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+    <script>
+      // 确保CozeWebSDK加载完成后再初始化
+      window.onload = function() {
+        if (window.CozeWebSDK) {
+          new CozeWebSDK.WebChatClient({
+            config: {
+              bot_id: '7576158818149597235',
+            },
+            componentProps: {
+              title: '码小宝',
+              theme: 'light',
+            },
+            auth: {
+              type: 'token',
+              // ！！！重要：请在这里填入你自己的 PAT Token
+              token: 'pat_Da1wOsoRDyPn2xcILqDuCIMxrFqKrB6mbDIE0pnSgXCHIsX9UakikJ7Io4YITJsU', 
+              onRefreshToken: function () {
+                // 同样，这里也需要填入你自己的 PAT Token
+                return 'pat_Da1wOsoRDyPn2xcILqDuCIMxrFqKrB6mbDIE0pnSgXCHIsX9UakikJ7Io4YITJsU';
+              }
+            },
+            // 初始化成功后的回调
+            onReady: function() {
+              console.log('智能体 "码小宝" 初始化成功！');
+              // 隐藏加载提示
+              const loadingIndicator = document.getElementById('coze-loading-indicator');
+              if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+              }
+            },
+            // 发生错误时的回调
+            onError: function(error) {
+              console.error('智能体初始化失败:', error);
+              const loadingIndicator = document.getElementById('coze-loading-indicator');
+              if (loadingIndicator) {
+                loadingIndicator.textContent = '智能助手加载失败，请检查Token或网络连接。';
+                loadingIndicator.style.color = 'red';
+              }
+            }
+          });
+        } else {
+          console.error('Coze Web SDK 未加载成功。');
+          const loadingIndicator = document.getElementById('coze-loading-indicator');
+          if (loadingIndicator) {
+            loadingIndicator.textContent = '智能助手加载失败，SDK未找到。';
+            loadingIndicator.style.color = 'red';
+          }
+        }
+      };
+    </script>
+<!-- 引入 Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+<script>
+    // 1. 替换为你的 Firebase 配置
+    const firebaseConfig = {<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCRX5wRcB8OqEkCIUxVfdqC4F9K3tgLyOY",
+    authDomain: "teacher-1c88c.firebaseapp.com",
+    databaseURL: "https://teacher-1c88c-default-rtdb.firebaseio.com",
+    projectId: "teacher-1c88c",
+    storageBucket: "teacher-1c88c.firebasestorage.app",
+    messagingSenderId: "1005145815446",
+    appId: "1:1005145815446:web:a8be89b820afa81a0f85b7"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+        
+    };
+
+    // 初始化 Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // 2. 配置：获取学生姓名（请确保你的姓名输入框 ID 是 "studentName"）
+    function getStudentName() {
+        const nameInput = document.getElementById("studentName");
+        return nameInput ? nameInput.value.trim() : "未命名学生";
+    }
+
+    // 定义一个函数来同步数据
+    function syncStudentData() {
+        const studentName = getStudentName();
+        const studentId = "student_" + (studentName || Date.now()); // 使用姓名或时间戳作为唯一ID
+
+        // 检查每个勋章的状态
+        const medals = [];
+        for (let i = 1; i <= 5; i++) {
+            const medal = document.getElementById('medal' + i);
+            if (medal && medal.checked) {
+                medals.push(i);
+            }
+        }
+
+        // 准备要同步的数据
+        const data = {
+            name: studentName,
+            medals: medals,
+            lastUpdated: new Date().toLocaleString()
+        };
+
+        // 将数据发送到 Firebase
+        db.ref(`students/${studentId}`).set(data)
+            .then(() => console.log("学生数据已同步到教师端"))
+            .catch(err => console.error("同步失败:", err));
+    }
+
+    // 3. 覆盖原有的函数，在完成后自动同步
+    // 保存原始函数的引用
+    const originalCheckActivity1 = checkActivity1;
+    const originalCheckActivity2 = checkActivity2;
+    const originalCompleteActivity = completeActivity;
+
+    // 重写函数
+    window.checkActivity1 = function() {
+        originalCheckActivity1();
+        setTimeout(syncStudentData, 600); // 延迟同步，确保勋章已点亮
+    }
+
+    window.checkActivity2 = function() {
+        originalCheckActivity2();
+        setTimeout(syncStudentData, 600);
+    }
+
+    window.completeActivity = function(activityNum) {
+        originalCompleteActivity(activityNum);
+        setTimeout(syncStudentData, 600);
+    }
+
+</script>
+</body>
+</html>
